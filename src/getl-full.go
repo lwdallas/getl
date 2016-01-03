@@ -1,18 +1,32 @@
 package main
 
+/*
+	This is the full version of the app with all steps linked in
+*/
+
 import (
 	"datasource"
 	"field"
 	"fmt"
 	"row"
+	"steps/sampleStep"
+	_ "steps/step"
 	"stream"
 )
 
 var messaging_chan chan int
 var shutdown_chan chan int
 
-func worker(messaging, done chan int) {
-	done <- 0
+func worker(messaging_chan, done_chan chan int) {
+
+	fmt.Println("...in worker...")
+
+	var s sampleStep.SampleStep
+	s.Initialize(&messaging_chan)
+	s.ID = 1
+	s.Name = "Main Simple Step Test"
+	s.Print()
+	messaging_chan <- 0
 }
 
 func main() {
@@ -45,6 +59,8 @@ func main() {
 	shutdown_chan = make(chan int)
 
 	go worker(messaging_chan, shutdown_chan)
+
+	<-messaging_chan
 
 	fmt.Println("Finished")
 }
