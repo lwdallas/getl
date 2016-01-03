@@ -4,7 +4,7 @@ package main
 Documentation
 
 	DONE define control messages
-	TODO define chanels
+	DONE define channels
 	DONE define fields
 	DONE define data sources
 	DONE implement row test
@@ -18,4 +18,4 @@ Documentation
 	TODO implement db data source test
 	TODO implement config file
 	TODO implement config file test
- */
+*/

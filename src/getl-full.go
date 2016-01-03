@@ -8,6 +8,13 @@ import (
 	"stream"
 )
 
+var messaging_chan chan int
+var shutdown_chan chan int
+
+func worker(messaging, done chan int) {
+	done <- 0
+}
+
 func main() {
 	fmt.Println("Starting with all GETL modules")
 
@@ -33,6 +40,11 @@ func main() {
 	fmt.Println("Testing a simple field object")
 	var field field.Field
 	fmt.Println(field)
+
+	messaging_chan = make(chan int)
+	shutdown_chan = make(chan int)
+
+	go worker(messaging_chan, shutdown_chan)
 
 	fmt.Println("Finished")
 }
