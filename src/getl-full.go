@@ -14,22 +14,25 @@ import (
 	"stream"
 )
 
-var messaging_chan chan int
-var shutdown_chan chan int
-
-func worker(messaging_chan, done_chan chan int) {
+func worker(messaging_chan, done_chan chan stream.Stream) {
 
 	fmt.Println("...in worker...")
 
 	var s sampleStep.SampleStep
-	s.Initialize(&messaging_chan)
+	s.Initialize(messaging_chan)
 	s.ID = 1
 	s.Name = "Main Simple Step Test"
 	s.Print()
-	messaging_chan <- 0
+
+	var aStream stream.Stream
+	aStream.DataMessage = ""
+	messaging_chan <- aStream
 }
 
 func main() {
+	var messaging_chan chan stream.Stream
+	var shutdown_chan chan stream.Stream
+
 	fmt.Println("Starting with all GETL modules")
 
 	// test a stream
@@ -55,8 +58,8 @@ func main() {
 	var field field.Field
 	fmt.Println(field)
 
-	messaging_chan = make(chan int)
-	shutdown_chan = make(chan int)
+	//messaging_chan = make( chan stream.Stream )
+	//shutdown_chan = make( chan stream.Stream )
 
 	go worker(messaging_chan, shutdown_chan)
 
