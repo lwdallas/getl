@@ -23,6 +23,9 @@ func worker(messaging_chan, done_chan chan stream.Stream) {
 	s.ID = 1
 	s.Name = "Main Simple Step Test"
 	s.Print()
+	s.Data = "Data From Main Simple Step Test"
+	s.SendDataMessage()
+	s.Print()
 
 	var aStream stream.Stream
 	aStream.DataMessage = ""
@@ -30,18 +33,18 @@ func worker(messaging_chan, done_chan chan stream.Stream) {
 }
 
 func main() {
-	var messaging_chan chan stream.Stream
-	var shutdown_chan chan stream.Stream
+	//var messaging_chan chan stream.Stream
+	//var shutdown_chan chan stream.Stream
 
 	fmt.Println("Starting with all GETL modules")
 
 	// test a stream
 	fmt.Println("Testing a simple stream object")
-	var stream stream.Stream
-	stream.SetControlMessage("Control")
-	stream.SetDataMessage("Data")
-	stream.SetErrorMessage("Error")
-	stream.Print()
+	var aStream stream.Stream
+	aStream.SetControlMessage("Control")
+	aStream.SetDataMessage("Data")
+	aStream.SetErrorMessage("Error")
+	aStream.Print()
 
 	// test a dataSource
 	fmt.Println("Testing a simple datasource object")
@@ -58,12 +61,14 @@ func main() {
 	var field field.Field
 	fmt.Println(field)
 
-	//messaging_chan = make( chan stream.Stream )
-	//shutdown_chan = make( chan stream.Stream )
+	messaging_chan := make(chan stream.Stream)
+	shutdown_chan := make(chan stream.Stream)
 
 	go worker(messaging_chan, shutdown_chan)
 
-	<-messaging_chan
+	aStream = <-messaging_chan
+
+	fmt.Println(aStream)
 
 	fmt.Println("Finished")
 }
