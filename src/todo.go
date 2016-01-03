@@ -7,9 +7,9 @@ Documentation
 	TODO define chanels
 	DONE define fields
 	DONE define data sources
-	TODO implement row test
-	TODO implement datasource test
-	TODO implement main test
+	DONE implement row test
+	DONE implement datasource test
+	DONE implement main test
 	TODO implement file reader
 	TODO implement file reader test
 	TODO implement file writer
