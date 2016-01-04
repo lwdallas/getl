@@ -1,13 +1,13 @@
 package sampleStep_test
 
 import (
-	"steps/sampleStep"
+	"steps/step"
 	"testing"
 )
 
 func TestStepCreation(t *testing.T) {
 	const idval, nameval = 1, "TestStep"
-	var tstep sampleStep.SampleStep
+	var tstep step.Step
 
 	tstep.Initialize(nil)
 	tstep.ID = 1

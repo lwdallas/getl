@@ -26,10 +26,6 @@ func worker(messaging_chan, done_chan chan stream.Stream) {
 	s.Data = "Data From Main Simple Step Test"
 	s.SendDataMessage()
 	s.Print()
-
-	var aStream stream.Stream
-	aStream.DataMessage = ""
-	messaging_chan <- aStream
 }
 
 func main() {
@@ -66,9 +62,11 @@ func main() {
 
 	go worker(messaging_chan, shutdown_chan)
 
-	aStream = <-messaging_chan
-
-	fmt.Println(aStream)
+	select {
+		case aStream = <-messaging_chan:
+			fmt.Println("Inspecting current state of stream channel")
+			fmt.Println(aStream)
+	}
 
 	fmt.Println("Finished")
 }
