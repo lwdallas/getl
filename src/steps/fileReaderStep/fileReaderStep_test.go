@@ -1,13 +1,13 @@
 package fileReaderStep_test
 
 import (
-	"steps/step"
+	"steps/fileReaderStep"
 	"testing"
 )
 
 func TestStepCreation(t *testing.T) {
 	const idval, nameval = 1, "TestStep"
-	var tstep step.Step
+	var tstep fileReaderStep.FileReaderStep
 
 	tstep.Initialize(nil)
 	tstep.ID = 1
@@ -16,5 +16,6 @@ func TestStepCreation(t *testing.T) {
 		t.Errorf("basic step creation failed assignment")
 	}
 
+	tstep.Execute()
 	tstep.Print()
 }
