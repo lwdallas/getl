@@ -21,6 +21,7 @@ func (self *FileReaderStep) Initialize(messaging_chan chan stream.Stream) {
 func (self *FileReaderStep) Execute() {
 	const fn = "/Users/lonniewebb/Documents/Projects/getl/src/steps/fileReaderStep/test-data/sample.txt"
 	f, err := os.Open(fn)
+	defer f.Close()
 	if err != nil {
 		log.Println("error reading file ", err)
 	} else {
